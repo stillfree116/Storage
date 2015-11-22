@@ -1,29 +1,32 @@
-package com.spoloborota.teaching.storage.ui;
+package com.spoloborota.teaching.storage.view;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import com.spoloborota.teaching.storage.model.RAM;
 import com.spoloborota.teaching.storage.processor.Processor;
 
+/**
+ * Commands received via system console
+ * @author Spoloborota
+ *
+ */
 public class Console {
-	RAM ram;
-	Processor processor;
+	public Processor processor;
 	
-	BufferedReader bufferedReader;
+	public BufferedReader bufferedReader;
 	
-	public Console(RAM ram, Processor processor) {
-		this.ram = ram;
+	public Console(Processor processor) {
 		this.processor = processor;
 		bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 	}
 	
-	void startListen() {
+	public void startListen() {
 		while(true) {
 			try {
-				String s = bufferedReader.readLine();
-				
+				String commandString = bufferedReader.readLine();
+				String result = processor.process(commandString);
+				System.out.println(result);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
