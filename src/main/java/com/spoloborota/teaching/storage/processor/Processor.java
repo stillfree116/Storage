@@ -1,7 +1,7 @@
 package com.spoloborota.teaching.storage.processor;
 
 import com.spoloborota.teaching.storage.commands.Commands;
-import com.spoloborota.teaching.storage.model.RAM;
+import com.spoloborota.teaching.storage.model.Model;
 import com.spoloborota.teaching.storage.processor.type.Add;
 import com.spoloborota.teaching.storage.processor.type.Create;
 import com.spoloborota.teaching.storage.processor.type.Display;
@@ -13,10 +13,10 @@ import com.spoloborota.teaching.storage.processor.type.Use;
  *
  */
 public class Processor {
-	public RAM ram;
+	public Model model;
 	
-	public Processor(RAM ram) {
-		this.ram = ram;
+	public Processor(Model model) {
+		this.model = model;
 	}
 	public String process(String commandString) {
 		String[] commandWords = commandString.trim().split("\\s+");
@@ -28,12 +28,12 @@ public class Processor {
 			String result = "";
 			switch (commandWords[0]) {
 			case Commands.DISPLAY:
-				result = Display.process(ram);
+				result = Display.process(model);
 				break;
 		
 			case Commands.USE:
 				if (commandWords.length > 1) {
-					result = Use.process(ram, commandWords);
+					result = Use.process(model, commandWords);
 				} else {
 					result = "Storage name does not specified";
 				}
@@ -41,7 +41,7 @@ public class Processor {
 				
 			case Commands.CREATE:
 				if (commandWords.length > 1) {
-					result = Create.process(ram, commandWords);
+					result = Create.process(model, commandWords);
 				} else {
 					result = "Storage name does not specified";
 				}
@@ -49,7 +49,7 @@ public class Processor {
 				
 			case Commands.ADD:
 				if (commandWords.length > 2) {
-					result = Add.process(ram, commandWords);					
+					result = Add.process(model, commandWords);					
 				} else {
 					result = "Data for storage does not specified correctly";
 				}

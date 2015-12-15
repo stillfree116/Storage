@@ -10,7 +10,7 @@ import com.spoloborota.teaching.storage.type.MapStorage;
  * @author Spoloborota
  *
  */
-public class RAM {
+public class RAM implements Model {
 	public Map<String, MapStorage> map;
 	public MapStorage currentStorage = null;
 	
@@ -18,19 +18,18 @@ public class RAM {
 		map = new HashMap<>();
 	}
 	
-	/**
-	 * Show all storages
-	 * @return string with all storage names
+	/* (non-Javadoc)
+	 * @see com.spoloborota.teaching.storage.model.Model#display()
 	 */
+	@Override
 	public String display() {
 		return map.keySet().toString();
 	}
 	
-	/**
-	 * Create new storage
-	 * @param name - name of the creating storage
-	 * @return "true" if all is Ok and "false" if storage with specified name already exists
+	/* (non-Javadoc)
+	 * @see com.spoloborota.teaching.storage.model.Model#create(java.lang.String)
 	 */
+	@Override
 	public boolean create(String name) {
 		if (map.containsKey(name)) {
 			return false;
@@ -40,10 +39,10 @@ public class RAM {
 		}
 	}
 	
-	/**
-	 * Delete existing storage by name
-	 * @param name
+	/* (non-Javadoc)
+	 * @see com.spoloborota.teaching.storage.model.Model#delete(java.lang.String)
 	 */
+	@Override
 	public void delete(String name) {
 		MapStorage deleted = map.remove(name);
 		if (deleted.equals(currentStorage)) {
@@ -51,11 +50,10 @@ public class RAM {
 		}
 	}
 	
-	/**
-	 * Select existing storage by name to operate with it
-	 * @param name
-	 * @return - "true" if storage with such name exist and "false" otherwise
+	/* (non-Javadoc)
+	 * @see com.spoloborota.teaching.storage.model.Model#use(java.lang.String)
 	 */
+	@Override
 	public boolean use(String name) {
 		MapStorage mapStorage = map.get(name);
 		if (mapStorage != null) {
@@ -66,11 +64,10 @@ public class RAM {
 		}
 	}
 	
-	/**
-	 * Add data to storage
-	 * @param data
-	 * @return - "true" if all is Ok and "false" if there is no selected storage 
+	/* (non-Javadoc)
+	 * @see com.spoloborota.teaching.storage.model.Model#add(java.lang.String[])
 	 */
+	@Override
 	public boolean add(String[] data) {
 		if (currentStorage != null) {
 			return currentStorage.add(data);
